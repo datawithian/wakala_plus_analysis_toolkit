@@ -1,0 +1,37 @@
+=== Statistics report: daily_deposits_kes ===
+Rows read         : 40
+Valid values      : 35
+Rejected values   : 5
+  row 7: '' (missing)
+  row 10: '-' (not a number)
+  row 14: 'n/a' (not a number)
+  row 25: '12,40O' (not a number)
+  row 29: '' (missing)
+
+                    all data              outliers removed
+count               35                    31
+mean                22,400.00             18,349.65
+median              18,805.47             18,506.72
+mode                none                  none
+variance (sample)   328,019,873.36        10,116,378.52
+std dev (sample)    18,111.32             3,180.63
+min / max           1,200.00 / 96,500.00  12,772.70 / 26,725.69
+Q1 / Q3             15,998.40 / 20,977.21 15,998.40 / 20,730.60
+IQR                 4,978.81              4,732.20
+
+Outlier fences      : lower 8,530.19, upper 28,445.41
+Outliers            : 1,200.00 (2026-10-02, AG-104), 29,060.99 (2026-10-07, AG-101), 88,400.00 (2026-10-06, AG-104), 96,500.00 (2026-09-20, AG-104)
+
+=== NumPy verification ===
+mean      MATCH
+median    MATCH
+variance  MATCH  (ddof=1)
+std dev   MATCH
+Q1 / Q3   MATCH  (method=linear)
+
+=== Unit tests ===
+Ran 21 tests in 0.018s
+OK
+
+=== Note for the risk team ===
+Three of the four outliers belong to AG-104 (Nakuru): the 88,400 and 96,500 KES days are roughly five times a normal day and could mean fraud, batched deposits or a keying error with extra digits, while the 1,200 KES day could mean a float shortage or a dropped digit. The fourth, 29,060.99 KES at AG-101, is only just above the upper fence and is most likely a genuinely busy day. AG-104 also has missing and entries, so its figures should be checked against M-Pesa statements before any conclusion is drawn.
